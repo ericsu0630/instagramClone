@@ -1,14 +1,9 @@
 package com.example.instaclone;
 
 import android.app.Application;
-import android.util.Log;
-
 import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 public class StarterApplication extends Application {
     @Override
@@ -17,6 +12,7 @@ public class StarterApplication extends Application {
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
+        //http://54.238.88.134/apps
         //Username, password: user, 0Stl3l8eU0Lu
         // Add your initialization code here
         Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
@@ -26,21 +22,20 @@ public class StarterApplication extends Application {
                 .build()
         );
 
-        ParseObject object = new ParseObject("ExampleObject");
-        object.put("myNumber", "123");
-        object.put("myString", "Eric");
-
-        object.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException ex) {
-                if (ex == null) {
-                    Log.i("Parse Result", "Successful!");
-                } else {
-                    Log.i("Parse Result", "Failed" + ex.toString());
-                }
-            }
-        });
-
+//        ParseObject exampleObject = new ParseObject("ExampleObject");
+//        exampleObject.put("myString","Ben");
+//        exampleObject.put("myNumber", "156");
+//        exampleObject.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                if(e == null){
+//                    //Ok
+//                    Log.i("Parse Success!", "data has been saved");
+//                }else{
+//                    Log.i("Error", "There was a Parse exception!");
+//                }
+//            }
+//        });
 
         ParseUser.enableAutomaticUser();
 
