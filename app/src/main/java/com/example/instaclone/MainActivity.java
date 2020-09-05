@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        username = (EditText) findViewById(R.id.usernameEditText);
-        password = (EditText) findViewById(R.id.passwordEditText);
-        password2 = (EditText) findViewById(R.id.passwordEditText2);
-        email = (EditText) findViewById(R.id.emailEditText);
-        login = (Button) findViewById(R.id.loginButton);
-        submit = (Button) findViewById(R.id.submit);
-        signUp = (TextView) findViewById(R.id.signupTextView);
-        loginText = (TextView) findViewById(R.id.backToLoginTextView);
+        username = findViewById(R.id.usernameEditText);
+        password = findViewById(R.id.passwordEditText);
+        password2 = findViewById(R.id.passwordEditText2);
+        email = findViewById(R.id.emailEditText);
+        login = findViewById(R.id.loginButton);
+        submit = findViewById(R.id.submit);
+        signUp = findViewById(R.id.signupTextView);
+        loginText = findViewById(R.id.backToLoginTextView);
         ParseUser.logOut();
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, user.getUsername()+" has logged in.", Toast.LENGTH_SHORT).show();
                 }else{
                     Log.i("Error1", e.toString());
-                    Toast.makeText(MainActivity.this, e.toString().split(": ")[1], Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.i("Error2", e.toString());
-                            Toast.makeText(MainActivity.this, e.toString().split(": ")[1], Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
