@@ -3,93 +3,99 @@ package com.example.instaclone;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.parse.FindCallback;
-import com.parse.GetCallback;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.parse.LogInCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.SaveCallback;
-
-import java.util.List;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText username, password, password2, email;
+    Button login, submit;
+    TextView signUp, loginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Save data to Parse server
-//        ParseObject tweets = new ParseObject("Scores");
-//        tweets.put("username", "Sam");
-//        tweets.put("score", 25);
-//
-//        tweets.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(ParseException e) {
-//                if(e == null){
-//                    Log.i("Success!", "The score was uploaded!");
-//                }else{
-//                    e.printStackTrace();
-//                    Log.i("Failed!", "something went wrong!");
-//                }
-//            }
-//        });
-
-        //Get data from Parse server
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("tweets");
-//        query.getInBackground("m7VU85V5kA", new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject object, ParseException e) {
-//                if(e == null && object!= null){
-//                    object.put("tweet", "Dylan's mom!");
-//                    object.saveInBackground();
-//                    Log.i("username",String.valueOf(object.getString("username")));
-//                    Log.i("tweet",String.valueOf(object.getString("tweet")));
-//                }else{
-//                    Log.i("Error","Parse get failed!");
-//                }
-//            }
-//        });
-
-        //Get more than 1 object from Parse server
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("tweets");
-//        query.findInBackground(new FindCallback<ParseObject>() {
-//            @Override
-//            public void done(List<ParseObject> objects, ParseException e) {
-//                if(e == null && objects.size()>0){
-//                    for(ParseObject object : objects){
-//                        Log.i("username", String.valueOf(object.getString("username")));
-//                        Log.i("tweet", String.valueOf(object.getString("tweet")));
-//                    }
-//                }else{
-//                    Log.i("Error", "get failed");
-//                }
-//            }
-//        });
-
-        //Search for a particular object using field data
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
-        query.whereEqualTo("score", 19);
-        //query.setLimit(1); //gets the first one
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if(e == null && objects.size()>0){
-                    for(ParseObject object : objects){
-                        int score = object.getInt("score");
-                        score+=1;
-                        object.put("score", score);
-                        object.saveInBackground();
-                    }
-                }else{
-                    Log.i("Error", "get failed");
-                }
-            }
-        });
+        username = (EditText) findViewById(R.id.usernameEditText);
+        password = (EditText) findViewById(R.id.passwordEditText);
+        password2 = (EditText) findViewById(R.id.passwordEditText2);
+        email = (EditText) findViewById(R.id.emailEditText);
+        login = (Button) findViewById(R.id.loginButton);
+        submit = (Button) findViewById(R.id.submit);
+        signUp = (TextView) findViewById(R.id.signupTextView);
+        loginText = (TextView) findViewById(R.id.backToLoginTextView);
+        ParseUser.logOut();
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
+
+    public void login(View view) {
+        ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if(e == null){
+                    Log.i("Success!", user.getUsername()+" has logged in.");
+                    Toast.makeText(MainActivity.this, user.getUsername()+" has logged in.", Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.i("Error1", e.toString());
+                    Toast.makeText(MainActivity.this, e.toString().split(": ")[1], Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void submit(View view) {
+        if(email.getText().toString().isEmpty()){
+            Log.i("Error", "email empty");
+            Toast.makeText(this, "email required", Toast.LENGTH_SHORT).show();
+        }else if (password.getText().toString().equals(password2.getText().toString())) { //if passwords match
+                final ParseUser newUser = new ParseUser();
+                newUser.setUsername(username.getText().toString());
+                newUser.setPassword(password.getText().toString());
+                newUser.setEmail(email.getText().toString());
+                newUser.signUpInBackground(new SignUpCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Log.i("Success", newUser.getUsername() + " has been added.");
+                            Toast.makeText(MainActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.i("Error2", e.toString());
+                            Toast.makeText(MainActivity.this, e.toString().split(": ")[1], Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        } else {
+            Log.i("Error", "Passwords do not match");
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void signUp(View view){
+        login.setVisibility(View.GONE);
+        signUp.setVisibility(View.GONE);
+        email.setVisibility(View.VISIBLE);
+        password2.setVisibility(View.VISIBLE);
+        submit.setVisibility(View.VISIBLE);
+        loginText.setVisibility(View.VISIBLE);
+    }
+
+    public void backToLogin(View view){
+        login.setVisibility(View.VISIBLE);
+        signUp.setVisibility(View.VISIBLE);
+        email.setVisibility(View.GONE);
+        password2.setVisibility(View.GONE);
+        submit.setVisibility(View.GONE);
+        loginText.setVisibility(View.GONE);
+    }
+
 }

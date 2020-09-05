@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">instaclone</string>
+    <string name="instagram_logo">instagram logo</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password_again">password again</string>
+    <string name="email">email</string>
+    <string name="submit">submit</string>
+    <string name="login_with_existing_account">Login with existing account.</string>
 </resources>

@@ -22,21 +22,6 @@ public class StarterApplication extends Application {
                 .build()
         );
 
-//        ParseObject exampleObject = new ParseObject("ExampleObject");
-//        exampleObject.put("myString","Ben");
-//        exampleObject.put("myNumber", "156");
-//        exampleObject.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(ParseException e) {
-//                if(e == null){
-//                    //Ok
-//                    Log.i("Parse Success!", "data has been saved");
-//                }else{
-//                    Log.i("Error", "There was a Parse exception!");
-//                }
-//            }
-//        });
-
         ParseUser.enableAutomaticUser();
 
         ParseACL defaultACL = new ParseACL();
