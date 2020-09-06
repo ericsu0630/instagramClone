@@ -9,4 +9,5 @@
     <string name="email">email</string>
     <string name="submit">submit</string>
     <string name="login_with_existing_account">Login with existing account.</string>
+    <string name="share">Share</string>
 </resources>

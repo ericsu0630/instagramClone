@@ -12,16 +12,15 @@ public class StarterApplication extends Application {
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
-        //http://3.112.150.38/apps
-        //Username, password: user, 0Stl3l8eU0Lu
+        //dashboard: http://54.199.240.161/apps
+        //Username password: user 6wuchjGnJU4y
         // Add your initialization code here
-        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
+        Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("myappID")
-                .clientKey("0Stl3l8eU0Lu")
-                .server("http://3.112.150.38/parse/")
+                .clientKey("6wuchjGnJU4y")
+                .server("http://54.199.240.161/parse/")
                 .build()
         );
-
         ParseUser.enableAutomaticUser();
 
         ParseACL defaultACL = new ParseACL();

@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Inst(er)gram");
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
         password2 = findViewById(R.id.passwordEditText2);
@@ -58,11 +59,13 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         password.setOnKeyListener(this);
         password2.setOnKeyListener(this);
 
-        if(ParseUser.getCurrentUser().getUsername() != null){
-            showUsers();
+        try{
+            if(ParseUser.getCurrentUser().getUsername() != null){
+                showUsers();
+            }
+        }catch(Exception e){
+            Log.i("Error", e.toString());
         }
-
-        ParseUser.logOut();
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
