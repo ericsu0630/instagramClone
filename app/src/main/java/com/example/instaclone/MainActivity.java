@@ -3,6 +3,7 @@ package com.example.instaclone;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         password.setOnKeyListener(this);
         password2.setOnKeyListener(this);
 
+        if(ParseUser.getCurrentUser().getUsername() != null){
+            showUsers();
+        }
+
         ParseUser.logOut();
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
@@ -68,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
             public void done(ParseUser user, ParseException e) {
                 if(user != null && e == null){
                     Log.i("Success!", user.getUsername()+" has logged in.");
-                    Toast.makeText(MainActivity.this, user.getUsername()+" has logged in.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, user.getUsername()+" has logged in.", Toast.LENGTH_SHORT).show();
+                    showUsers();
                 }else{
                     Log.i("Error1", e.toString());
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -91,7 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
                     public void done(ParseException e) {
                         if (e == null) {
                             Log.i("Success", newUser.getUsername() + " has been added.");
-                            Toast.makeText(MainActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                            showUsers();
                         } else {
                             Log.i("Error2", e.toString());
                             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -127,6 +134,11 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     public void closeKeyboard(View view){ //hides they keyboard when user clicks on background
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
+    }
+
+    public void showUsers(){
+        Intent intent = new Intent(getApplicationContext(),UserListActivity.class);
+        startActivity(intent);
     }
 
 }
