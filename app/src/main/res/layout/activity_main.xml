@@ -113,7 +113,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/instagram_logo"
         android:maxHeight="96dp"
-        android:maxWidth="96dp"
+        android:maxWidth="128dp"
         android:minHeight="64dp"
         android:minWidth="64dp"
         android:onClick="closeKeyboard"
@@ -121,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_instagram_2016" />
+        app:srcCompat="@drawable/ic_imageicon" />
 
     <TextView
         android:id="@+id/signupTextView"

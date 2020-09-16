@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">instaclone</string>
+    <string name="app_name">FotoShare</string>
     <string name="instagram_logo">instagram logo</string>
     <string name="username">username</string>
     <string name="password">password</string>
@@ -9,5 +9,7 @@
     <string name="email">email</string>
     <string name="submit">submit</string>
     <string name="login_with_existing_account">Login with existing account.</string>
-    <string name="share">Share</string>
+    <string name="share">Upload</string>
+    <string name="logout">Log Out</string>
+    <string name="users">Users</string>
 </resources>

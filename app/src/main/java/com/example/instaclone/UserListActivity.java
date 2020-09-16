@@ -57,7 +57,7 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { //When user finishes photo selection
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null){
             Uri selectedImage = data.getData();
@@ -121,7 +121,7 @@ public class UserListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-        setTitle("User List");
+        setTitle("Users");
         final ArrayList<String> users;
         final ListView userList;
         final ArrayAdapter<String> arrayAdapter;

@@ -6,5 +6,5 @@
         android:title="@string/share" />
     <item
         android:id="@+id/logout"
-        android:title="logout" />
+        android:title="@string/logout" />
 </menu>

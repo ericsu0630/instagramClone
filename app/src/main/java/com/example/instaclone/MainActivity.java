@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     TextView signUp, loginText;
     boolean loginMode = true;
 
-    @Override
-    public boolean onKey(View view, int i, KeyEvent keyEvent) { //Do something when a key is pressed
+    @Override //Do something when a key is pressed
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
         if(i == KeyEvent.KEYCODE_ENTER  && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
             if(view.getTag().toString().equals("password") && loginMode){
                 Log.i("KEY EVENT", "password1");
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Inst(er)gram");
+        setTitle("FotoShare");
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
         password2 = findViewById(R.id.passwordEditText2);
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
                     public void done(ParseException e) {
                         if (e == null) {
                             Log.i("Success", newUser.getUsername() + " has been added.");
-                            //Toast.makeText(MainActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
                             showUsers();
                         } else {
                             Log.i("Error2", e.toString());
